@@ -4,3 +4,6 @@ Title = "Customer Segmentation using K-Means"
 
 COLAB LINK:-
 https://colab.research.google.com/drive/121N9iJC-ULbSAqHUsOE4wYcOKWajNazA?usp=sharing
+
+At risk customer csv:-
+/content/at_risk_customers_to_target.csv
