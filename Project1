@@ -5,7 +5,7 @@
     "colab": {
       "private_outputs": true,
       "provenance": [],
-      "authorship_tag": "ABX9TyNjBSJdNTXlxYbBPFkk5nAP",
+      "authorship_tag": "ABX9TyOmA5sjl6I1kbrbbR+2qv5n",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -24,7 +24,7 @@
         "colab_type": "text"
       },
       "source": [
-        "<a href=\"https://colab.research.google.com/github/shrawanbishnoi395-dot/chatbot/blob/main/Project1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+        "<a href=\"https://colab.research.google.com/github/shrawanbishnoi395-dot/mycode/blob/main/Project1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
     },
     {
@@ -181,6 +181,64 @@
       ],
       "metadata": {
         "id": "ukRQGA5LvxKP"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Predict Churn (Machine Learning)**"
+      ],
+      "metadata": {
+        "id": "XtsvdvS4dv3C"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# 1. Define Target (Churn = No purchase in last 90 days)\n",
+        "rfm['Is_Churned'] = (rfm['Recency'] > 90).astype(int)\n",
+        "\n",
+        "# 2. Features and Target\n",
+        "X = rfm[['Recency', 'Frequency', 'MonetaryValue']]\n",
+        "y = rfm['Is_Churned']\n",
+        "\n",
+        "# 3. Train Model\n",
+        "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n",
+        "model = RandomForestClassifier(n_estimators=100)\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "# 4. Results\n",
+        "y_pred = model.predict(X_test)\n",
+        "print(classification_report(y_test, y_pred))"
+      ],
+      "metadata": {
+        "id": "i2jTRmjbb70R"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Exporting Actionable Lists**"
+      ],
+      "metadata": {
+        "id": "e3zsZapxd5gq"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Save At-Risk customers for the Marketing Team\n",
+        "at_risk_list = rfm[rfm['General_Segment'] == 'At Risk']\n",
+        "at_risk_list.to_csv('at_risk_customers_to_target.csv')\n",
+        "\n",
+        "print(\"Project Complete. CSV exported for business action.\")"
+      ],
+      "metadata": {
+        "id": "qNVTLBJ6dnPJ"
       },
       "execution_count": null,
       "outputs": []
